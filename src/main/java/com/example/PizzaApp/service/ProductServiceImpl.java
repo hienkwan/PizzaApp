@@ -1,5 +1,6 @@
 package com.example.PizzaApp.service;
 
+import com.example.PizzaApp.dto.SaleProductDto;
 import com.example.PizzaApp.model.Product;
 import com.example.PizzaApp.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,4 +18,11 @@ public class ProductServiceImpl implements ProductService {
         List<Product> productsReturn = productRepository.findAll();
         return productsReturn;
     }
+
+    @Override
+    public List<SaleProductDto> getSaleProduct() {
+        return null;
+    }
+
+
 }
