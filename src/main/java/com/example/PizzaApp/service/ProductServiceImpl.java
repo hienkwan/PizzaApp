@@ -20,8 +20,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<SaleProductDto> getSaleProduct() {
-        return null;
+    public Product getProductById(Integer id) {
+        Product productReturn = productRepository.findProductById(id);
+        return productReturn;
     }
 
 

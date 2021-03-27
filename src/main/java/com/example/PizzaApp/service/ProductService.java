@@ -9,5 +9,5 @@ public interface ProductService {
 
     List<Product> getAllProduct();
 
-    List<SaleProductDto> getSaleProduct();
+    Product getProductById(Integer id);
 }
