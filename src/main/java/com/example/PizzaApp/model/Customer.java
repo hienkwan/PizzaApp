@@ -1,5 +1,6 @@
 package com.example.PizzaApp.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,8 +14,14 @@ public class Customer implements Serializable {
     private int id;
     private String username;
     private String password;
+
+    @Column(name = "phonenumber")
     private String phoneNumber;
+
     private String Address;
+
+    @Column(name = "user_role")
+    private Integer user_role;
 
     public Customer(){
     }
@@ -61,5 +68,13 @@ public class Customer implements Serializable {
 
     public void setAddress(String address) {
         Address = address;
+    }
+
+    public Integer getUser_role() {
+        return user_role;
+    }
+
+    public void setUser_role(Integer user_role) {
+        this.user_role = user_role;
     }
 }

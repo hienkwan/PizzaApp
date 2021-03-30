@@ -2,7 +2,6 @@ package com.example.PizzaApp.controller;
 
 import com.example.PizzaApp.dto.SaleProductDto;
 import com.example.PizzaApp.model.Product;
-import com.example.PizzaApp.model.SizePrice;
 import com.example.PizzaApp.service.ProductService;
 import com.example.PizzaApp.service.SizePriceService;
 import org.modelmapper.ModelMapper;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,8 +41,8 @@ public class ProductController {
         this.modelMapper.addMappings(productMap);
     }
 
-    @RequestMapping(value = "/api/products",method = RequestMethod.GET)
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @RequestMapping(value = "admin/api/products",method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<Product>> getAllProduct(){
         List<Product> products = productService.getAllProduct();
         return new ResponseEntity<>(products,HttpStatus.OK);
@@ -60,7 +58,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/api/productSaleById/{productId}",method = RequestMethod.GET)
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<SaleProductDto> getSaleProductById(@PathVariable("productId") Integer productId){
         Product product = productService.getProductById(productId);
         SaleProductDto dataReturn = new SaleProductDto();

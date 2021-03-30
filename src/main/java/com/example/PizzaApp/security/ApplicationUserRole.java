@@ -1,5 +1,6 @@
 package com.example.PizzaApp.security;
 import com.google.common.collect.Sets;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
@@ -7,7 +8,7 @@ import java.util.stream.Collectors;
 
 import static com.example.PizzaApp.security.ApplicationUserPermission.*;
 
-public enum  ApplicationUserRole {
+public enum  ApplicationUserRole implements GrantedAuthority {
     USER(Sets.newHashSet(PRODUCT_READ,CATEGORY_READ,SIZEPRICE_READ)),
     ADMIN(Sets.newHashSet(PRODUCT_READ, PRODUCT_WRITE, CATEGORY_READ, CATEGORY_WRITE,SIZEPRICE_READ.SIZEPRICE_WRITE.CUSTOMER_READ,CUSTOMER_WRITE));
 
@@ -27,5 +28,11 @@ public enum  ApplicationUserRole {
                 .collect(Collectors.toSet());
         permissions.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         return permissions;
+    }
+
+
+    @Override
+    public String getAuthority() {
+        return name();
     }
 }

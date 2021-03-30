@@ -35,5 +35,8 @@ create table IF NOT EXISTS Customer(
     UserName varchar(255),
     PassWord varchar(255),
     PhoneNumber varchar(255),
-    Address varchar(255)
+    Address varchar(255),
+    user_role int
 );
+
+
