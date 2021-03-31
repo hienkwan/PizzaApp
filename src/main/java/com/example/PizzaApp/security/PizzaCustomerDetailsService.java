@@ -30,8 +30,8 @@ public class PizzaCustomerDetailsService implements UserDetailsService {
         Optional<Customer> user = customerRepository.findCustomerByUsername(s);
 
         //ADMIN == 1 , USER == 0
-        ApplicationUserRole roles =(user.get().getUser_role()==0) ? ApplicationUserRole.valueOf("USER") :
-                ApplicationUserRole.valueOf("ADMIN");
+        ApplicationUserRole roles =(user.get().getUser_role()==0) ? ApplicationUserRole.USER :
+                ApplicationUserRole.ADMIN;
 
         if(user.isEmpty()){
             throw new UsernameNotFoundException(s);

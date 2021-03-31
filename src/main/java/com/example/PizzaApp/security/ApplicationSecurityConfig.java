@@ -4,6 +4,7 @@ import com.example.PizzaApp.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,7 @@ import static com.example.PizzaApp.security.ApplicationUserRole.*;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
@@ -35,34 +37,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/api/**").hasRole(USER.name())
-                .antMatchers("/admin/api/**").hasRole(ADMIN.name())
+                //.antMatchers("/api/**").hasRole(USER.name())
+                //.antMatchers("/admin/api/**").hasRole(ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
     }
-
-//    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails annaSmithUser = User.builder()
-//                .username("annasmith")
-//                .password(passwordEncoder.encode("password"))
-//                .roles(USER.name()) // ROLE_STUDENT
-//                .build();
-//
-//        UserDetails lindaUser = User.builder()
-//                .username("linda")
-//                .password(passwordEncoder.encode("password123"))
-//                .roles(ADMIN.name()) // ROLE_ADMIN
-//                .build();
-//
-//
-//        return new InMemoryUserDetailsManager(
-//                annaSmithUser,
-//                lindaUser
-//        );
-//
-//    }
 }

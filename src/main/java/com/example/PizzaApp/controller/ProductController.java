@@ -41,7 +41,7 @@ public class ProductController {
         this.modelMapper.addMappings(productMap);
     }
 
-    @RequestMapping(value = "admin/api/products",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/api/products",method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<Product>> getAllProduct(){
         List<Product> products = productService.getAllProduct();
