@@ -1,5 +1,7 @@
 package com.example.PizzaApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -22,8 +24,9 @@ public class Product implements Serializable {
     @Column(name = "imgurl")
     private String imgUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "cateid")
+    @JsonIgnore
     private Category category;
 
     public Product() {

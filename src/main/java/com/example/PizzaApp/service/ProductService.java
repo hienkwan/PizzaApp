@@ -4,10 +4,15 @@ import com.example.PizzaApp.dto.SaleProductDto;
 import com.example.PizzaApp.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
     List<Product> getAllProduct();
 
-    Product getProductById(Integer id);
+    Optional<Product> getProductById(Integer id);
+    Product addProduct(Product product);
+
+    void deleteProduct(Integer id);
+
 }
