@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -18,4 +19,23 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoriesReturn = categoryRepository.findAll();
         return categoriesReturn;
     }
+
+    @Override
+    public Optional<Category> findCategoryById(Integer id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        return category;
+    }
+
+    @Override
+    public Category addCategory(Category category) {
+        categoryRepository.save(category);
+        return category;
+    }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        categoryRepository.deleteById(id);
+    }
+
+
 }
