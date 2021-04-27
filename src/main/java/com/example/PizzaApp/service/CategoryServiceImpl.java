@@ -1,10 +1,13 @@
 package com.example.PizzaApp.service;
 
+import com.example.PizzaApp.exception.ResourceNotFoundException;
 import com.example.PizzaApp.model.Category;
+import com.example.PizzaApp.model.Product;
 import com.example.PizzaApp.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +38,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategory(Integer id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Product> getAllProductsByCateId(Integer cateId) {
+//        Optional<Product> products = categoryRepository.findById(cateId).map(
+//                category -> category.getProducts().
+//        );
+//        return products;
+        return null;
     }
 
 
