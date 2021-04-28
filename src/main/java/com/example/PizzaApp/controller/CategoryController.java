@@ -1,6 +1,7 @@
 package com.example.PizzaApp.controller;
 
 import com.example.PizzaApp.model.Category;
+import com.example.PizzaApp.model.Product;
 import com.example.PizzaApp.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class CategoryController {
@@ -43,5 +46,13 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable(name = "cateId")Integer cateId){
         categoryService.deleteCategory(cateId);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "api/getProductByCategory/{cateId}",method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> getAllProductsByCategory(@PathVariable(name = "cateId")Integer cateId){
+        Optional<Category> category = categoryService.findCategoryById(cateId);
+        List<Product> products = (List<Product>) category.get().getProducts();
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
 }

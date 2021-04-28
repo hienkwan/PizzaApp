@@ -11,6 +11,5 @@ public interface CategoryService {
     Optional<Category> findCategoryById(Integer id);
     Category addCategory(Category category);
     void deleteCategory(Integer id);
-    Optional<Product> getAllProductsByCateId(Integer cateId);
 
 }

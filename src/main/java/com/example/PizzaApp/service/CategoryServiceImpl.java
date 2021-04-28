@@ -40,14 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    @Override
-    public Optional<Product> getAllProductsByCateId(Integer cateId) {
-//        Optional<Product> products = categoryRepository.findById(cateId).map(
-//                category -> category.getProducts().
-//        );
-//        return products;
-        return null;
-    }
+
 
 
 }
