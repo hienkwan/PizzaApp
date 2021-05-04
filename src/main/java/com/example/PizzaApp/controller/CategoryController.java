@@ -11,28 +11,28 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/category")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/api/categories",method = RequestMethod.GET)
+    @RequestMapping(value = "/api",method = RequestMethod.GET)
     public ResponseEntity<List<Category>> getAllCategory(){
         List<Category> categories = categoryService.getAllCategories();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/management/api/category",method = RequestMethod.POST)
+    @RequestMapping(value = "/management/api",method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Category> addCategory( @RequestBody Category category){
         Category categoryReturn = categoryService.addCategory(category);
         return new ResponseEntity<>(categoryReturn,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/management/api/category/{cateId}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/management/api/{cateId}",method = RequestMethod.PUT)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Category> updateCategory(@PathVariable(name = "cateId")Integer cateId,@RequestBody Category category){
         return categoryService.findCategoryById(cateId).map(categoryUpdate ->{
@@ -42,7 +42,7 @@ public class CategoryController {
         }).get();
     }
 
-    @RequestMapping(value = "/management/api/category/{cateId}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/management/api/{cateId}",method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable(name = "cateId")Integer cateId){
         categoryService.deleteCategory(cateId);
