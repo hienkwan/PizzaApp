@@ -1,12 +1,12 @@
 package com.example.PizzaApp.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+@Entity
+@Table(name = "order")
 public class Order {
     @Id
     private Integer id;

@@ -1,9 +1,9 @@
 package com.example.PizzaApp.model;
 
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "orderdetail")
 public class OrderDetail {
     @Id
     private Integer id;

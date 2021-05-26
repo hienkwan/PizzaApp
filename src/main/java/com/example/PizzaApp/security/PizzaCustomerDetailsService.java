@@ -39,7 +39,6 @@ public class PizzaCustomerDetailsService implements UserDetailsService {
             System.out.println(roles);
             return withUsername(user.get().getUsername())
                     .password(passwordEncoder.encode(user.get().getPassword()))
-                    //.roles(roles.getAuthority())
                     .authorities(roles.getGrantedAuthorities())
                     .accountExpired(false)
                     .accountLocked(false)
