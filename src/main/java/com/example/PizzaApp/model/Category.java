@@ -1,5 +1,7 @@
 package com.example.PizzaApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -15,6 +17,7 @@ public class Category implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Collection<Product> products;
 
     public Category(){

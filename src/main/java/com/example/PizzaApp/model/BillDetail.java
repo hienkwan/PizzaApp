@@ -3,31 +3,20 @@ package com.example.PizzaApp.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "orderdetail")
-public class OrderDetail {
+@Table(name = "billdetail")
+public class BillDetail {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer productId;
     private Integer quantity;
     private Integer sizeId;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 
-    public OrderDetail(){
-    }
-
-    public OrderDetail(Integer id,
-                       Integer productId,
-                       Integer quantity,
-                       Integer sizeId,
-                       Order order) {
-        this.id = id;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.sizeId = sizeId;
-        this.order = order;
+    public BillDetail(){
     }
 
     public Integer getId() {
@@ -58,11 +47,11 @@ public class OrderDetail {
         this.sizeId = sizeId;
     }
 
-    public Order getOrder() {
-        return order;
+    public Bill getBill() {
+        return bill;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 }

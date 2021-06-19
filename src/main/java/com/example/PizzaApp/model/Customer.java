@@ -1,10 +1,10 @@
 package com.example.PizzaApp.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "customer")
@@ -22,6 +22,10 @@ public class Customer implements Serializable {
 
     @Column(name = "user_role")
     private Integer user_role;
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Collection<Bill> bills;
 
     public Customer(){
     }
@@ -76,5 +80,13 @@ public class Customer implements Serializable {
 
     public void setUser_role(Integer user_role) {
         this.user_role = user_role;
+    }
+
+    public Collection<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(Collection<Bill> bills) {
+        this.bills = bills;
     }
 }
