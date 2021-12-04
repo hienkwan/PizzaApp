@@ -39,6 +39,14 @@ create table IF NOT EXISTS customer(
     user_role int
 );
 
+INSERT INTO category VALUES
+(1,'pizza'),
+(2,'burger'),
+(3,'drink')
+
+INSERT INTO product VALUES
+(3,'pizza 01','This is pizza 01',20,'abc.jpg',1)
+
 INSERT INTO customer(id,UserName,PassWord,PhoneNumber,Address,user_role)
 VALUES
 (1, 'adam', '1234', '01233456789','',1),

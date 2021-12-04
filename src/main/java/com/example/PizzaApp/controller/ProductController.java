@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -45,14 +45,14 @@ public class ProductController {
         this.modelMapper.addMappings(productMap);
     }
 
-    @RequestMapping(value = "/api",method = RequestMethod.GET)
+    @RequestMapping(value = "/products",method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public ResponseEntity<List<Product>> getAllProduct(){
         List<Product> products = productService.getAllProduct();
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/management/api/{cateId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/product/{cateId}",method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Product> addProduct(@PathVariable(value = "cateId")Integer cateId,@RequestBody Product product){
         return categoryRepository.findById(cateId).map(category -> {
@@ -62,7 +62,7 @@ public class ProductController {
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + cateId + " not found"));
     }
 
-    @RequestMapping(value = "/management/api/{cateId}/{productId}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/product/{cateId}/{productId}",method = RequestMethod.PUT)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Product> updateProduct(@PathVariable(value = "cateId")Integer cateId,@PathVariable(value = "productId")Integer productId,
                                  @RequestBody Product product){
@@ -80,13 +80,13 @@ public class ProductController {
         }).get();
     }
 
-    @RequestMapping(value = "/management/api/{productId}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/product/{productId}",method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteProduct(@PathVariable(value = "productId")Integer productId){
         productService.deleteProduct(productId);
     }
 
-    @RequestMapping(value = "/api/productSale",method = RequestMethod.GET)
+    @RequestMapping(value = "/productSale",method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('product:read')")
     public ResponseEntity<List<SaleProductDto>> getAllSaleProduct(){
         List<Product> products = productService.getAllProduct();
@@ -95,7 +95,7 @@ public class ProductController {
                 .collect(Collectors.toList()),HttpStatus.OK) ;
     }
 
-    @RequestMapping(value = "/api/productSaleById/{productId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/productSaleById/{productId}",method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<SaleProductDto> getSaleProductById(@PathVariable("productId") Integer productId){
         Optional<Product> product = productService.getProductById(productId);
