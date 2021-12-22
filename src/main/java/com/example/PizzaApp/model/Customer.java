@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -19,7 +20,8 @@ import java.util.Collection;
 public class Customer implements Serializable {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String username;
     private String password;
 
@@ -31,7 +33,35 @@ public class Customer implements Serializable {
     @Column(name = "user_role")
     private Integer user_role;
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Collection<Bill> bills;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer",
+            fetch = FetchType.EAGER)
+    private List<Bill> bills;
+
+    @Override
+    public String toString() {
+        return username;
+    }
+
+    public void addBill(Bill bill) {
+        addBill(bill, true);
+    }
+
+    void addBill(Bill bill, boolean b) {
+        if (bill != null) {
+            if(getBills()==null){
+                bills = new ArrayList<>();
+                getBills().add(bill);
+            }else {
+                getBills().add(bill);
+            }
+            if (b) {
+                bill.addCustomer(this, false);
+            }
+        }
+    }
+
+    public void removeBill(Bill bill) {
+        getBills().remove(bill);
+        bill.setCustomer(null);
+    }
 }

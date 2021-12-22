@@ -21,7 +21,5 @@ public class BillDetail {
     private Integer quantity;
     private Integer sizeId;
 
-    @ManyToOne
-    @JoinColumn(name = "bill_id")
-    private Bill bill;
+
 }

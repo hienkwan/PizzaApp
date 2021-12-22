@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "bill")
@@ -23,20 +23,37 @@ public class Bill implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customerid")
-    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    private LocalDateTime orderTime;
+    private LocalDateTime orderDateTime;
 
     private String orderType;
 
-    private LocalDate orderDate;
-
     private Long totalPrice;
 
-    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bill_id")
     @JsonIgnore
-    private Collection<BillDetail> billDetails;
+    private List<BillDetail> billDetails;
+
+    public void addCustomer(Customer customer) {
+        addCustomer(customer,true);
+    }
+
+    void addCustomer(Customer customer,boolean b){
+        this.customer=customer;
+        if(customer!=null&&b){
+            customer.addBill(this,true);
+        }
+    }
+
+    @Override
+    public String toString(){
+        if(customer!=null){
+            return orderType+" "+customer.toString();
+        }
+        return orderType;
+    }
 }
