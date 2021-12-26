@@ -7,7 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 
@@ -73,5 +76,15 @@ class BillRepositoryTest {
         bill.addCustomer(customerSaved);
 
         billRepository.save(bill);
+    }
+
+    @Test
+    public void findBillByOrderDateTime(){
+        String dateStr = "2021-12-22";
+
+        LocalDate localDate = LocalDate.parse(dateStr);
+        List<Bill> billList =  billRepository.findBillByOrderDateTime(localDate);
+        System.out.println(billList);
+
     }
 }
