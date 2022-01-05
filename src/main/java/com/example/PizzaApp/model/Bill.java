@@ -44,6 +44,7 @@ public class Bill implements Serializable {
 
     void addCustomer(Customer customer,boolean b){
         this.customer=customer;
+        //prevent infinite loop
         if(customer!=null&&b){
             customer.addBill(this,true);
         }

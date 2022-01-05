@@ -85,6 +85,5 @@ class BillRepositoryTest {
         LocalDate localDate = LocalDate.parse(dateStr);
         List<Bill> billList =  billRepository.findBillByOrderDateTime(localDate);
         System.out.println(billList);
-
     }
 }
