@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.time.LocalDate;
 
+import static com.example.PizzaApp.utils.MD5.getMd5;
+
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -37,9 +39,10 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
             UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
                     .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
 
+            String password = getMd5(authenticationRequest.getPassword());
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),
-                    authenticationRequest.getPassword()
+                    password
             );
 
             Authentication authenticate = authenticationManager.authenticate(authentication);
