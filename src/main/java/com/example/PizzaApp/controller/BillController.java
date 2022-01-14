@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,7 @@ public class BillController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/bill", method = RequestMethod.POST)
     public ResponseEntity<Bill> createBill(@RequestBody BillDto billDto) {
+        billDto.setOrderDateTime(LocalDateTime.now());
         Bill billSaved = billService.createBill(billDto);
         return new ResponseEntity<>(billSaved, HttpStatus.OK);
     }

@@ -33,6 +33,7 @@ public class Customer implements Serializable {
     @Column(name = "user_role")
     private Integer user_role;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer",
             fetch = FetchType.EAGER)
     private List<Bill> bills;
