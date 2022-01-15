@@ -106,6 +106,7 @@
 				<version>${parent.version}</version>
 			</plugin>
 		</plugins>
+		<finalName>spring-boot-pizza</finalName>
 	</build>
 
 </project>
