@@ -26,16 +26,16 @@ public class PizzaCustomerDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s){
         Optional<Customer> user = customerRepository.findCustomerByUsername(s);
 
-        //ADMIN == 1 , USER == 0
-        ApplicationUserRole roles =(user.get().getUser_role()==0) ? ApplicationUserRole.USER :
-                ApplicationUserRole.ADMIN;
-
         if(user.isEmpty()){
-            throw new UsernameNotFoundException(s);
+            System.out.println("Username not found");
+            throw new UsernameNotFoundException("username not found "+s);
         }else{
+            //ADMIN == 1 , USER == 0
+            ApplicationUserRole roles =(user.get().getUser_role()==0) ? ApplicationUserRole.USER :
+                    ApplicationUserRole.ADMIN;
             System.out.println(roles);
             return withUsername(user.get().getUsername())
                     .password(passwordEncoder.encode(user.get().getPassword()))
