@@ -33,6 +33,8 @@ public class Bill implements Serializable {
 
     private Long totalPrice;
 
+    private String currency;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "bill_id")
     @JsonIgnore
